@@ -8,7 +8,12 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import com.rzaaeeff.drawaletter.R
+import com.rzaaeeff.drawaletter.persistence.Letter
 import kotlinx.android.synthetic.main.fragment_draw.*
+import android.graphics.Bitmap
+import android.os.AsyncTask
+import com.rzaaeeff.drawaletter.persistence.LetterDatabase
+import java.io.ByteArrayOutputStream
 
 
 class DrawFragment : Fragment() {
@@ -58,9 +63,24 @@ class DrawFragment : Fragment() {
                 return@setOnClickListener
             }
 
-            val imageView = ImageView(context!!)
-            imageView.setImageBitmap(drawingView.getBitmap())
-            rootLayout?.addView(imageView)
+            val bitmap = drawingView.getBitmap()
+            val bos = ByteArrayOutputStream()
+            bitmap.compress(Bitmap.CompressFormat.PNG, 100, bos)
+            val byteArray = bos.toByteArray()
+
+            val letter = Letter(
+                    letter = etLetter.text.toString(),
+                    image = byteArray
+            )
+
+            AsyncTask.execute {
+                LetterDatabase.getInstance(context!!).letterDao().insertLetter(letter)
+
+                activity?.runOnUiThread {
+                    drawingView.clear()
+                    etLetter.text = null
+                }
+            }
         }
     }
 }
