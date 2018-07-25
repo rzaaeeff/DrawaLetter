@@ -3,6 +3,7 @@ package com.rzaaeeff.drawaletter
 import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
 import android.view.View
+import com.rzaaeeff.drawaletter.fragment.DataListFragment
 import com.rzaaeeff.drawaletter.fragment.DrawFragment
 import com.rzaaeeff.drawaletter.fragment.MainFragment
 
@@ -20,6 +21,13 @@ class CoreActivity : AppCompatActivity() {
     fun openDrawFragment(v: View) {
         supportFragmentManager.beginTransaction()
                 .replace(R.id.fragmentContainer, DrawFragment())
+                .addToBackStack(null)
+                .commit()
+    }
+
+    fun openListFragment(v: View) {
+        supportFragmentManager.beginTransaction()
+                .replace(R.id.fragmentContainer, DataListFragment())
                 .addToBackStack(null)
                 .commit()
     }

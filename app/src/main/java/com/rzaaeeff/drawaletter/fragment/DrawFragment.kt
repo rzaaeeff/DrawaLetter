@@ -1,25 +1,24 @@
 package com.rzaaeeff.drawaletter.fragment
 
+import android.graphics.Bitmap
+import android.os.AsyncTask
 import android.os.Bundle
 import android.support.v4.app.Fragment
 import android.support.v7.app.AlertDialog
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.ImageView
 import com.rzaaeeff.drawaletter.R
 import com.rzaaeeff.drawaletter.persistence.Letter
-import kotlinx.android.synthetic.main.fragment_draw.*
-import android.graphics.Bitmap
-import android.os.AsyncTask
 import com.rzaaeeff.drawaletter.persistence.LetterDatabase
+import kotlinx.android.synthetic.main.fragment_draw.*
 import java.io.ByteArrayOutputStream
 
 
 class DrawFragment : Fragment() {
 
     // Other elements
-    var rootLayout: ViewGroup? = null
+    private lateinit var rootLayout: ViewGroup
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
                               savedInstanceState: Bundle?): View? {
@@ -64,6 +63,12 @@ class DrawFragment : Fragment() {
             }
 
             val bitmap = drawingView.getBitmap()
+            val emptyBitmap = Bitmap.createBitmap(bitmap.width, bitmap.height, bitmap.config)
+
+            if (bitmap.sameAs(emptyBitmap)) {
+                return@setOnClickListener
+            }
+
             val bos = ByteArrayOutputStream()
             bitmap.compress(Bitmap.CompressFormat.PNG, 100, bos)
             val byteArray = bos.toByteArray()
