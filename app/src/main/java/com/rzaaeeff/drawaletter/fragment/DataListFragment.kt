@@ -1,21 +1,21 @@
 package com.rzaaeeff.drawaletter.fragment
 
 import android.content.Context
+import android.graphics.BitmapFactory
 import android.os.AsyncTask
 import android.os.Bundle
 import android.support.v4.app.Fragment
 import android.support.v7.widget.LinearLayoutManager
 import android.support.v7.widget.RecyclerView
-import android.text.Layout
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.FrameLayout
 import android.widget.ImageView
 import android.widget.TextView
 import com.rzaaeeff.drawaletter.R
 import com.rzaaeeff.drawaletter.persistence.Letter
 import com.rzaaeeff.drawaletter.persistence.LetterDatabase
+import java.io.ByteArrayInputStream
 
 
 class DataListFragment: Fragment() {
@@ -26,9 +26,9 @@ class DataListFragment: Fragment() {
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         recyclerView = RecyclerView(context)
-        recyclerView.layoutParams = FrameLayout.LayoutParams(
-                FrameLayout.LayoutParams.MATCH_PARENT,
-                FrameLayout.LayoutParams.MATCH_PARENT
+        recyclerView.layoutParams = ViewGroup.LayoutParams(
+                ViewGroup.LayoutParams.MATCH_PARENT,
+                ViewGroup.LayoutParams.MATCH_PARENT
         )
 
         recyclerView.layoutManager = LinearLayoutManager(context!!)
@@ -58,7 +58,7 @@ class DataListFragment: Fragment() {
 
         override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): LetterHolder {
             val view = LayoutInflater.from(context).inflate(
-                    R.layout.recycler_item_letter, null
+                    R.layout.recycler_item_letter, parent, false
             )
 
             return LetterHolder(view)
@@ -77,7 +77,8 @@ class DataListFragment: Fragment() {
             fun bind(letter: Letter) {
                 textView.text = letter.letter
 
-
+                val inputStream = ByteArrayInputStream(letter.image)
+                imageView.setImageBitmap(BitmapFactory.decodeStream(inputStream))
             }
         }
     }
