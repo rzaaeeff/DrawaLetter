@@ -10,6 +10,8 @@ abstract class LetterDatabase: RoomDatabase() {
     abstract fun letterDao(): LetterDao
 
     companion object {
+        const val DB_NAME = "DrawaLetter.db"
+
         @Volatile private var INSTANCE: LetterDatabase? = null
 
         fun getInstance(context: Context): LetterDatabase =
@@ -19,6 +21,6 @@ abstract class LetterDatabase: RoomDatabase() {
 
         private fun buildDatabase(context: Context) =
             Room.databaseBuilder(context.applicationContext,
-                    LetterDatabase::class.java, "DrawaLetter.db").build()
+                    LetterDatabase::class.java, DB_NAME).build()
     }
 }

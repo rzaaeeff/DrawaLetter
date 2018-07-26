@@ -21,4 +21,11 @@
         android:layout_height="wrap_content"
         android:text="List" />
 
+    <Button
+        android:id="@+id/btnShare"
+        android:onClick="share"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Share" />
+
 </LinearLayout>
