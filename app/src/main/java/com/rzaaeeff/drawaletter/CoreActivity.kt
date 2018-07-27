@@ -4,8 +4,11 @@ import android.Manifest
 import android.content.Intent
 import android.content.pm.PackageManager
 import android.net.Uri
+import android.os.Build
 import android.os.Bundle
 import android.os.Environment
+import android.os.StrictMode
+import android.support.v4.app.ActivityCompat
 import android.support.v7.app.AppCompatActivity
 import android.view.View
 import com.rzaaeeff.drawaletter.fragment.DataListFragment
@@ -15,11 +18,6 @@ import com.rzaaeeff.drawaletter.persistence.LetterDatabase
 import java.io.File
 import java.io.FileInputStream
 import java.io.FileOutputStream
-import java.util.*
-import android.os.StrictMode
-import android.os.Build
-import android.support.v4.app.ActivityCompat
-import android.support.v4.content.ContextCompat
 
 
 class CoreActivity : AppCompatActivity() {
