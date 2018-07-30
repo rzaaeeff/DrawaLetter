@@ -8,11 +8,18 @@
     tools:context=".fragment.MainFragment">
 
     <Button
+        android:id="@+id/btnInteractive"
+        android:onClick="openInteractiveMode"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Interactive Mode" />
+
+    <Button
         android:id="@+id/btnDraw"
         android:onClick="openDrawFragment"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Draw" />
+        android:text="Free Mode" />
 
     <Button
         android:id="@+id/btnList"

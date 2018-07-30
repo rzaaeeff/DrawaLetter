@@ -7,8 +7,8 @@ import java.util.*
 
 @Entity(tableName = "letters")
 data class Letter(
-        @PrimaryKey
-        val id: String = UUID.randomUUID().toString(),
+        @PrimaryKey(autoGenerate = true)
+        val id: Int? = null,
 
         @ColumnInfo(name = "letter")
         val letter: String,

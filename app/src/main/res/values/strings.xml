@@ -1,6 +1,7 @@
 <resources>
     <string name="app_name">Draw a Letter</string>
 
-    <!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="instruction_format">Please, draw letter \'%s\'.</string>
+
+    <string name="alphabet">abcçdeəfgğhıijklmnoöpqrsştuüvxyz</string>
 </resources>

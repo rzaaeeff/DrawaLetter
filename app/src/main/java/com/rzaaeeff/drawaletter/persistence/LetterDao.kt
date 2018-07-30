@@ -10,7 +10,7 @@ interface LetterDao {
     /**
      * Get all letters.
      */
-    @Query("SELECT * FROM Letters")
+    @Query("SELECT * FROM letters")
     fun getAllLetters(): List<Letter>
 
     /**
@@ -22,6 +22,12 @@ interface LetterDao {
     /**
      * Delete all letters.
      */
-    @Query("DELETE FROM Letters")
+    @Query("DELETE FROM letters")
     fun deleteAllLetters()
+
+    /**
+     * Count of all entries.
+     */
+    @Query("SELECT COUNT(*) FROM letters")
+    fun count() : Int
 }

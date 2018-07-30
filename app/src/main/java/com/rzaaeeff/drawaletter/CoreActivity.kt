@@ -13,6 +13,7 @@ import android.support.v7.app.AppCompatActivity
 import android.view.View
 import com.rzaaeeff.drawaletter.fragment.DataListFragment
 import com.rzaaeeff.drawaletter.fragment.DrawFragment
+import com.rzaaeeff.drawaletter.fragment.InteractiveModeFragment
 import com.rzaaeeff.drawaletter.fragment.MainFragment
 import com.rzaaeeff.drawaletter.persistence.LetterDatabase
 import java.io.File
@@ -41,6 +42,13 @@ class CoreActivity : AppCompatActivity() {
     fun openListFragment(v: View) {
         supportFragmentManager.beginTransaction()
                 .replace(R.id.fragmentContainer, DataListFragment())
+                .addToBackStack(null)
+                .commit()
+    }
+
+    fun openInteractiveMode(v: View) {
+        supportFragmentManager.beginTransaction()
+                .replace(R.id.fragmentContainer, InteractiveModeFragment())
                 .addToBackStack(null)
                 .commit()
     }

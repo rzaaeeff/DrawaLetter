@@ -10,6 +10,15 @@
     android:weightSum="10"
     tools:context=".fragment.DrawFragment">
 
+    <TextView
+        android:id="@+id/tvLetter"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="8dp"
+        android:gravity="center"
+        android:textSize="30sp"
+        tools:text="@string/instruction_format" />
+
     <com.rzaaeeff.drawaletter.view.SquareCardView
         android:layout_width="match_parent"
         android:layout_height="0dp"
@@ -28,25 +37,38 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_margin="8dp"
+        android:gravity="center"
         android:clipToPadding="false"
         android:weightSum="2">
 
-        <EditText
-            android:id="@+id/etLetter"
+        <android.support.v7.widget.CardView
+            android:id="@+id/btnErase"
             android:layout_width="0dp"
-            android:layout_height="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="8dp"
             android:layout_weight="1"
-            android:gravity="center"
-            android:inputType="text"
-            android:maxLength="1"
-            android:maxLines="1"
-            android:singleLine="true" />
+            android:foreground="?android:attr/selectableItemBackground"
+            app:cardBackgroundColor="#bfbfbf"
+            app:cardCornerRadius="10dp"
+            app:cardElevation="5dp">
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:drawableRight="@android:drawable/ic_menu_delete"
+                android:gravity="center"
+                android:padding="10dp"
+                android:text="Erase"
+                android:textColor="#000" />
+
+        </android.support.v7.widget.CardView>
 
         <android.support.v7.widget.CardView
-            android:id="@+id/btnSave"
+            android:id="@+id/btnNext"
             android:layout_width="0dp"
-            android:layout_height="match_parent"
+            android:layout_height="wrap_content"
             android:layout_marginLeft="4dp"
+            android:layout_margin="8dp"
             android:layout_marginStart="4dp"
             android:layout_weight="1"
             android:foreground="?android:attr/selectableItemBackground"
@@ -57,33 +79,12 @@
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:drawableRight="@android:drawable/ic_menu_save"
+                android:drawableRight="@android:drawable/ic_media_next"
                 android:gravity="center"
                 android:padding="10dp"
-                android:text="Save"
+                android:text="Next"
                 android:textColor="#000" />
 
         </android.support.v7.widget.CardView>
     </LinearLayout>
-
-    <android.support.v7.widget.CardView
-        android:id="@+id/btnErase"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_margin="8dp"
-        android:foreground="?android:attr/selectableItemBackground"
-        app:cardBackgroundColor="#bfbfbf"
-        app:cardCornerRadius="10dp"
-        app:cardElevation="5dp">
-
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:drawableRight="@android:drawable/ic_menu_delete"
-            android:gravity="center"
-            android:padding="10dp"
-            android:text="Erase"
-            android:textColor="#000" />
-
-    </android.support.v7.widget.CardView>
 </LinearLayout>
