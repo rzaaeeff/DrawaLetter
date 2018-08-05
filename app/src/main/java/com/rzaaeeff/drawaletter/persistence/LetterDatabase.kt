@@ -5,7 +5,7 @@ import android.arch.persistence.room.Room
 import android.arch.persistence.room.RoomDatabase
 import android.content.Context
 
-@Database(entities = [Letter::class], version = 1)
+@Database(entities = [Letter::class], version = 2)
 abstract class LetterDatabase: RoomDatabase() {
     abstract fun letterDao(): LetterDao
 
@@ -21,8 +21,8 @@ abstract class LetterDatabase: RoomDatabase() {
 
         private fun buildDatabase(context: Context) =
             Room.databaseBuilder(context.applicationContext,
-                    LetterDatabase::class.java, DB_NAME).build()
+                    LetterDatabase::class.java, DB_NAME)
+                    .fallbackToDestructiveMigration()
+                    .build()
     }
-
-
 }

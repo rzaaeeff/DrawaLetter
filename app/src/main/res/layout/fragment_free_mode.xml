@@ -8,7 +8,7 @@
     android:orientation="vertical"
     android:padding="8dp"
     android:weightSum="10"
-    tools:context=".fragment.DrawFragment">
+    tools:context=".fragment.FreeModeFragment">
 
     <com.rzaaeeff.drawaletter.view.SquareCardView
         android:layout_width="match_parent"
@@ -60,7 +60,7 @@
                 android:drawableRight="@android:drawable/ic_menu_save"
                 android:gravity="center"
                 android:padding="10dp"
-                android:text="Yadda Saxla / Save"
+                android:text="@string/save"
                 android:textColor="#000" />
 
         </android.support.v7.widget.CardView>
@@ -82,7 +82,7 @@
             android:drawableRight="@android:drawable/ic_menu_delete"
             android:gravity="center"
             android:padding="10dp"
-            android:text="Sil / Clear"
+            android:text="@string/clear"
             android:textColor="#000" />
 
     </android.support.v7.widget.CardView>

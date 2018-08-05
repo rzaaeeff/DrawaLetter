@@ -39,11 +39,9 @@ dependencies {
     implementation 'com.android.support:support-v4:27.1.1'
     implementation 'com.android.support:cardview-v7:27.1.1'
     implementation "android.arch.persistence.room:runtime:$room_version"
-    implementation 'com.google.firebase:firebase-storage:11.8.0'
-    implementation 'com.google.firebase:firebase-auth:11.8.0'
     kapt "android.arch.persistence.room:compiler:$room_version"
+
+
     // use kapt for Kotlin
     implementation 'com.android.support:recyclerview-v7:27.1.1'
 }
-
-apply plugin: 'com.google.gms.google-services'

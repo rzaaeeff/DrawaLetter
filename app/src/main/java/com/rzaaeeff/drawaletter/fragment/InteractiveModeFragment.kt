@@ -54,22 +54,22 @@ class InteractiveModeFragment : Fragment() {
     private fun setListeners() {
         btnNext.setOnClickListener {
             if (!saveLetter()) {
-                Toast.makeText(context, "Siz heç nə çəkməmisiniz\nYou didn't draw anything.", Toast.LENGTH_SHORT).show()
+                Toast.makeText(context, getString(R.string.err_you_did_not_draw_anything), Toast.LENGTH_SHORT).show()
             } else if (!showNextLetter()) {
-                Toast.makeText(context, "Siz tapşırığı tamamladınız. Təşəkkürlər!\nYou've completed the task. Thank you!", Toast.LENGTH_LONG).show()
+                Toast.makeText(context, getString(R.string.you_have_completed_task), Toast.LENGTH_LONG).show()
                 activity?.onBackPressed()
             }
         }
 
         btnErase.setOnClickListener {
             AlertDialog.Builder(activity!!)
-                    .setTitle("Təsdiqlə / Confirm")
-                    .setMessage("Əminsiniz?\nAre you sure?")
-                    .setPositiveButton("BƏLİ / YES") { dialog, which ->
+                    .setTitle(R.string.confirm)
+                    .setMessage(R.string.are_you_sure)
+                    .setPositiveButton(R.string.yes) { dialog, which ->
                         drawingView.clear()
                         dialog.dismiss()
                     }
-                    .setNegativeButton("XEYR / NO") { dialog, which ->
+                    .setNegativeButton(R.string.no) { dialog, which ->
                         // Do nothing
                         dialog.dismiss()
                     }
@@ -79,20 +79,27 @@ class InteractiveModeFragment : Fragment() {
 
     private fun constructAlphabet() {
         val base = getString(R.string.alphabet).toMutableList()
+        val capitals = mutableListOf<Char>()
 
         for (letter in base)
-            alphabet.addAll(
-                    listOf(letter.toString().toUpperCase(Locale("az")).toCharArray()[0],
-                            letter))
+            capitals.add(letter.toString().toUpperCase(Locale("az")).toCharArray()[0])
+
+        alphabet.addAll(base)
+        alphabet.addAll(capitals)
 
         index = 0
     }
 
     private fun showNextLetter(): Boolean {
-        tvLetter.text = String.format(getString(
-                R.string.instruction_format,
-                alphabet[index % alphabet.size]
-        ))
+        val letter = alphabet[index % alphabet.size]
+
+
+        tvLetter.text = String.format(
+                getString(R.string.instruction_format),
+                letter,
+                getString(if (letter.isUpperCase()) R.string.uppercase else R.string.lowercase),
+                getString(if (letter.isUpperCase()) R.string.uppercase_en else R.string.lowercase_en)
+        )
 
         return index++ % alphabet.size != 0
     }

@@ -1,6 +1,7 @@
 package com.rzaaeeff.drawaletter
 
 import android.Manifest
+import android.content.Context
 import android.content.Intent
 import android.content.pm.PackageManager
 import android.net.Uri
@@ -12,7 +13,7 @@ import android.support.v4.app.ActivityCompat
 import android.support.v7.app.AppCompatActivity
 import android.view.View
 import com.rzaaeeff.drawaletter.fragment.DataListFragment
-import com.rzaaeeff.drawaletter.fragment.DrawFragment
+import com.rzaaeeff.drawaletter.fragment.FreeModeFragment
 import com.rzaaeeff.drawaletter.fragment.InteractiveModeFragment
 import com.rzaaeeff.drawaletter.fragment.MainFragment
 import com.rzaaeeff.drawaletter.persistence.LetterDatabase
@@ -32,9 +33,9 @@ class CoreActivity : AppCompatActivity() {
                 .commit()
     }
 
-    fun openDrawFragment(v: View) {
+    fun openFreeModeFragment(v: View) {
         supportFragmentManager.beginTransaction()
-                .replace(R.id.fragmentContainer, DrawFragment())
+                .replace(R.id.fragmentContainer, FreeModeFragment())
                 .addToBackStack(null)
                 .commit()
     }
@@ -56,7 +57,7 @@ class CoreActivity : AppCompatActivity() {
     fun share(v: View) {
         if (ActivityCompat.checkSelfPermission(this,
                         Manifest.permission.WRITE_EXTERNAL_STORAGE) == PackageManager.PERMISSION_GRANTED) {
-            exportDatabse()
+            exportAndSendDatabase()
         } else {
             ActivityCompat.requestPermissions(
                     this,
@@ -72,14 +73,18 @@ class CoreActivity : AppCompatActivity() {
         if (requestCode == 100) {
             if (grantResults.isNotEmpty()) {
                 if (grantResults[0] == PackageManager.PERMISSION_GRANTED) {
-                    exportDatabse()
+                    exportAndSendDatabase()
                 }
             }
         }
     }
 
-    private fun exportDatabse() {
+    private fun exportAndSendDatabase() {
         var backupDB: File? = null
+
+        val uuid = getSharedPreferences(DrawaLetter.SP_NAME, Context.MODE_PRIVATE)
+                .getString(DrawaLetter.SP_UUID, "NONE")
+
         try {
             val sd = Environment.getExternalStorageDirectory()
             val data = Environment.getDataDirectory()
@@ -88,7 +93,7 @@ class CoreActivity : AppCompatActivity() {
                 val currentDBPath = ("//data//" + packageName
                         + "//databases//" + LetterDatabase.DB_NAME + "")
                 val currentDB = File(data, currentDBPath)
-                backupDB = File(sd, LetterDatabase.DB_NAME)
+                backupDB = File(sd, LetterDatabase.DB_NAME + "-$uuid")
 
                 if (currentDB.exists()) {
 
@@ -101,42 +106,25 @@ class CoreActivity : AppCompatActivity() {
                     dst.close()
                 }
             }
-        } catch (e: Exception) {
-            e.printStackTrace()
-        }
+        } catch (e: Exception) {}
 
         if (Build.VERSION.SDK_INT >= 24) {
             try {
                 val m = StrictMode::class.java.getMethod("disableDeathOnFileUriExposure")
                 m.invoke(null)
-            } catch (e: Exception) {
-                e.printStackTrace()
-            }
+            } catch (e: Exception) {}
 
         }
 
-//        val emailIntent = Intent(android.content.Intent.ACTION_SEND)
-//        emailIntent.type = "*/*"
-//        emailIntent.putExtra(android.content.Intent.EXTRA_EMAIL,
-//                arrayOf("rzaaeeff@gmail.com"))
-//        emailIntent.putExtra(android.content.Intent.EXTRA_SUBJECT,
-//                "[Handwritten Letter Data-set]")
-//
-//        val r = Random()
-//
-//        emailIntent.putExtra(android.content.Intent.EXTRA_SUBJECT,
-//                "Local db " + r.nextInt())
-//        emailIntent.putExtra(Intent.EXTRA_STREAM, Uri.fromFile(backupDB))
-//        startActivity(Intent.createChooser(emailIntent, "Export database"))
-
         val intentShareFile = Intent(Intent.ACTION_SEND)
-        intentShareFile.setType("*/*");
+        intentShareFile.type = "*/*"
         intentShareFile.putExtra(Intent.EXTRA_STREAM, Uri.parse("file://${backupDB?.canonicalPath}"))
 
+        intentShareFile.putExtra(Intent.EXTRA_EMAIL, arrayOf("rzaaeeff@gmail.com"))
         intentShareFile.putExtra(Intent.EXTRA_SUBJECT,
-                "[Draw A Letter | Data-set]");
-        intentShareFile.putExtra(Intent.EXTRA_TEXT, "Sharing File...");
+                "[Draw A Letter | Data-set]")
+        intentShareFile.putExtra(Intent.EXTRA_TEXT, "Sharing File...\n$uuid")
 
-        startActivity(Intent.createChooser(intentShareFile, "Share File"));
+        startActivity(Intent.createChooser(intentShareFile, "Share File"))
     }
 }

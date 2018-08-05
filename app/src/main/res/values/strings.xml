@@ -1,7 +1,32 @@
 <resources>
     <string name="app_name">Draw a Letter</string>
 
-    <string name="instruction_format">Zəhmət olmasa, \'%s\' hərfini yazın.</string>
+    <string name="uppercase">böyük</string>
+    <string name="uppercase_en">uppercase</string>
+    <string name="lowercase">kiçik</string>
+    <string name="lowercase_en">lowercase</string>
+    <string name="instruction_format">Zəhmət olmasa, %2$s \'%1$s\' hərfini yazın.\nPlease, draw letter %3$s \'%1$s\'.</string>
 
-    <string name="alphabet">abcçdeəfgğhıijklmnoöpqrsştuüvxyz</string>
+    <string name="alphabet">əğıöşüabcçdefghijklmnopqrstuvxyz</string>
+
+    <string name="confirm">Təsdiqlə / Confirm</string>
+    <string name="are_you_sure">Əminsiniz?\nAre you sure?</string>
+    <string name="yes">BƏLİ / YES</string>
+    <string name="no">XEYR / NO</string>
+
+    <string name="err_you_did_not_draw_anything">Siz heç nə çəkməmisiniz.\nYou didn\'t draw anything.</string>
+    <string name="err_mandatory_field">Boş qoymaq olmaz / Mandatory field</string>
+    <string name="you_have_completed_task">Siz tapşırığı tamamladınız. Təşəkkürlər!\n
+        You\'ve completed the task. Thank you!</string>
+
+    <string name="clear">Sil / Clear</string>
+    <string name="save">Yadda Saxla / Save</string>
+    <string name="next">Növbəti / Next</string>
+    <string name="interactive_mode">Başla / Interactive Mode</string>
+    <string name="free_mode">Kef elə / Free Mode</string>
+    <string name="list">Siyahı / List</string>
+    <string name="share">Göndər / Share</string>
+
+    <string name="task_completed">Tapşırıq tamamlanıb.\nTask has been completed.</string>
+    <string name="task_not_completed">Tapşırıq tamamlanmayıb.\nTask has not been completed.</string>
 </resources>

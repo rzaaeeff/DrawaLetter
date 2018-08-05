@@ -10,9 +10,12 @@ data class Letter(
         @PrimaryKey(autoGenerate = true)
         val id: Int? = null,
 
-        @ColumnInfo(name = "letter")
+        @ColumnInfo()
         val letter: String,
 
         @ColumnInfo(typeAffinity = ColumnInfo.BLOB)
-        val image: ByteArray
+        val image: ByteArray,
+
+        @ColumnInfo()
+        val isDrawnInFreeMode: Boolean = false
 )

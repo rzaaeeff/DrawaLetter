@@ -7,32 +7,42 @@
     android:orientation="vertical"
     tools:context=".fragment.MainFragment">
 
+    <TextView
+        android:id="@+id/tvInfo"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="8dp"
+        android:gravity="center"
+        android:textSize="20dp"
+        tools:text="@string/task_not_completed" />
+
     <Button
+        android:layout_marginTop="20dp"
         android:id="@+id/btnInteractive"
         android:onClick="openInteractiveMode"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Başla / Interactive Mode" />
+        android:text="@string/interactive_mode" />
 
     <Button
         android:id="@+id/btnDraw"
-        android:onClick="openDrawFragment"
+        android:onClick="openFreeModeFragment"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Kef elə / Free Mode" />
+        android:text="@string/free_mode" />
 
     <Button
         android:id="@+id/btnList"
         android:onClick="openListFragment"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Siyahı / List" />
+        android:text="@string/list" />
 
     <Button
         android:id="@+id/btnShare"
         android:onClick="share"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Göndər / Share" />
+        android:text="@string/share" />
 
 </LinearLayout>

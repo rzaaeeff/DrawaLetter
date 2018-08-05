@@ -11,11 +11,10 @@ import android.view.ViewGroup
 import com.rzaaeeff.drawaletter.R
 import com.rzaaeeff.drawaletter.persistence.Letter
 import com.rzaaeeff.drawaletter.persistence.LetterDatabase
-import kotlinx.android.synthetic.main.fragment_draw.*
+import kotlinx.android.synthetic.main.fragment_free_mode.*
 import java.io.ByteArrayOutputStream
 
-
-class DrawFragment : Fragment() {
+class FreeModeFragment : Fragment() {
 
     // Other elements
     private lateinit var rootLayout: ViewGroup
@@ -23,7 +22,7 @@ class DrawFragment : Fragment() {
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
                               savedInstanceState: Bundle?): View? {
         // Inflate the layout for this fragment
-        rootLayout = inflater.inflate(R.layout.fragment_draw, container, false) as ViewGroup
+        rootLayout = inflater.inflate(R.layout.fragment_free_mode, container, false) as ViewGroup
 
         return rootLayout
     }
@@ -43,13 +42,13 @@ class DrawFragment : Fragment() {
     private fun setListeners() {
         btnErase.setOnClickListener {
             AlertDialog.Builder(activity!!)
-                    .setTitle("Təsdiqlə / Confirm")
-                    .setMessage("Əminsiniz?\nAre you sure?")
-                    .setPositiveButton("BƏLİ / YES") { dialog, which ->
+                    .setTitle(R.string.confirm)
+                    .setMessage(R.string.are_you_sure)
+                    .setPositiveButton(R.string.yes) { dialog, which ->
                         drawingView.clear()
                         dialog.dismiss()
                     }
-                    .setNegativeButton("XEYR / NO") { dialog, which ->
+                    .setNegativeButton(R.string.no) { dialog, which ->
                         // Do nothing
                         dialog.dismiss()
                     }
@@ -58,7 +57,7 @@ class DrawFragment : Fragment() {
 
         btnSave.setOnClickListener {
             if (etLetter.text.isEmpty()) {
-                etLetter.error = "Boş qoymaq olmaz / Mandatory field"
+                etLetter.error = getString(R.string.err_mandatory_field)
                 return@setOnClickListener
             }
 
@@ -75,7 +74,8 @@ class DrawFragment : Fragment() {
 
             val letter = Letter(
                     letter = etLetter.text.toString(),
-                    image = byteArray
+                    image = byteArray,
+                    isDrawnInFreeMode = true
             )
 
             AsyncTask.execute {

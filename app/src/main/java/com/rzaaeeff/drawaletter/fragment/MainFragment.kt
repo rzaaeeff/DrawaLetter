@@ -24,10 +24,11 @@ class MainFragment : Fragment() {
         super.onResume()
 
         AsyncTask.execute {
-            val isEligibleForFreeMode  = LetterDatabase.getInstance(context!!).letterDao().count() >= 64
+            val taskCompleted  = LetterDatabase.getInstance(context!!).letterDao().count() >= 64
 
             activity?.runOnUiThread {
-                btnDraw.visibility = if (isEligibleForFreeMode) View.VISIBLE else View.GONE
+                btnDraw.visibility = if (taskCompleted) View.VISIBLE else View.GONE
+                tvInfo.text = getString(if (taskCompleted) R.string.task_completed else R.string.task_not_completed)
             }
         }
     }
