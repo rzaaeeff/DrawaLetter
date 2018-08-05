@@ -1,7 +1,7 @@
 <resources>
     <string name="app_name">Draw a Letter</string>
 
-    <string name="instruction_format">Please, draw letter \'%s\'.</string>
+    <string name="instruction_format">Zəhmət olmasa, \'%s\' hərfini yazın.</string>
 
     <string name="alphabet">abcçdeəfgğhıijklmnoöpqrsştuüvxyz</string>
 </resources>

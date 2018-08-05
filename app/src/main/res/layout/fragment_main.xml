@@ -12,27 +12,27 @@
         android:onClick="openInteractiveMode"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Interactive Mode" />
+        android:text="Başla / Interactive Mode" />
 
     <Button
         android:id="@+id/btnDraw"
         android:onClick="openDrawFragment"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Free Mode" />
+        android:text="Kef elə / Free Mode" />
 
     <Button
         android:id="@+id/btnList"
         android:onClick="openListFragment"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="List" />
+        android:text="Siyahı / List" />
 
     <Button
         android:id="@+id/btnShare"
         android:onClick="share"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Share" />
+        android:text="Göndər / Share" />
 
 </LinearLayout>

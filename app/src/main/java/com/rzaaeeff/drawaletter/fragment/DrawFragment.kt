@@ -43,13 +43,13 @@ class DrawFragment : Fragment() {
     private fun setListeners() {
         btnErase.setOnClickListener {
             AlertDialog.Builder(activity!!)
-                    .setTitle("Confirm")
-                    .setMessage("Are you sure?")
-                    .setPositiveButton("YES") { dialog, which ->
+                    .setTitle("Təsdiqlə / Confirm")
+                    .setMessage("Əminsiniz?\nAre you sure?")
+                    .setPositiveButton("BƏLİ / YES") { dialog, which ->
                         drawingView.clear()
                         dialog.dismiss()
                     }
-                    .setNegativeButton("NO") { dialog, which ->
+                    .setNegativeButton("XEYR / NO") { dialog, which ->
                         // Do nothing
                         dialog.dismiss()
                     }
@@ -58,7 +58,7 @@ class DrawFragment : Fragment() {
 
         btnSave.setOnClickListener {
             if (etLetter.text.isEmpty()) {
-                etLetter.error = "Mandatory field"
+                etLetter.error = "Boş qoymaq olmaz / Mandatory field"
                 return@setOnClickListener
             }
 

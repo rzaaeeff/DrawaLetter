@@ -54,22 +54,22 @@ class InteractiveModeFragment : Fragment() {
     private fun setListeners() {
         btnNext.setOnClickListener {
             if (!saveLetter()) {
-                Toast.makeText(context, "You didn't draw anything.", Toast.LENGTH_SHORT).show()
+                Toast.makeText(context, "Siz heç nə çəkməmisiniz\nYou didn't draw anything.", Toast.LENGTH_SHORT).show()
             } else if (!showNextLetter()) {
-                Toast.makeText(context, "You've completed the task. Thank you!", Toast.LENGTH_LONG).show()
+                Toast.makeText(context, "Siz tapşırığı tamamladınız. Təşəkkürlər!\nYou've completed the task. Thank you!", Toast.LENGTH_LONG).show()
                 activity?.onBackPressed()
             }
         }
 
         btnErase.setOnClickListener {
             AlertDialog.Builder(activity!!)
-                    .setTitle("Confirm")
-                    .setMessage("Are you sure?")
-                    .setPositiveButton("YES") { dialog, which ->
+                    .setTitle("Təsdiqlə / Confirm")
+                    .setMessage("Əminsiniz?\nAre you sure?")
+                    .setPositiveButton("BƏLİ / YES") { dialog, which ->
                         drawingView.clear()
                         dialog.dismiss()
                     }
-                    .setNegativeButton("NO") { dialog, which ->
+                    .setNegativeButton("XEYR / NO") { dialog, which ->
                         // Do nothing
                         dialog.dismiss()
                     }
@@ -89,18 +89,12 @@ class InteractiveModeFragment : Fragment() {
     }
 
     private fun showNextLetter(): Boolean {
-        return if (index < alphabet.size) {
-            tvLetter.text = String.format(getString(
-                    R.string.instruction_format,
-                    alphabet[index]
-            ))
+        tvLetter.text = String.format(getString(
+                R.string.instruction_format,
+                alphabet[index % alphabet.size]
+        ))
 
-            index++
-
-            true
-        } else {
-            false
-        }
+        return index++ % alphabet.size != 0
     }
 
     private fun saveLetter(): Boolean {
@@ -117,7 +111,7 @@ class InteractiveModeFragment : Fragment() {
         val byteArray = bos.toByteArray()
 
         val letter = Letter(
-                letter = alphabet[index-1].toString(),
+                letter = alphabet[(index - 1) % alphabet.size].toString(),
                 image = byteArray
         )
 
@@ -125,7 +119,7 @@ class InteractiveModeFragment : Fragment() {
             LetterDatabase.getInstance(context!!).letterDao().insertLetter(letter)
 
             activity?.runOnUiThread {
-                drawingView.clear()
+                drawingView?.clear()
             }
         }
 

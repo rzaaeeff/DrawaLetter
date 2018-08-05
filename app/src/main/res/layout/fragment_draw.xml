@@ -60,7 +60,7 @@
                 android:drawableRight="@android:drawable/ic_menu_save"
                 android:gravity="center"
                 android:padding="10dp"
-                android:text="Save"
+                android:text="Yadda Saxla / Save"
                 android:textColor="#000" />
 
         </android.support.v7.widget.CardView>
@@ -82,7 +82,7 @@
             android:drawableRight="@android:drawable/ic_menu_delete"
             android:gravity="center"
             android:padding="10dp"
-            android:text="Erase"
+            android:text="Sil / Clear"
             android:textColor="#000" />
 
     </android.support.v7.widget.CardView>

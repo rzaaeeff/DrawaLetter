@@ -23,4 +23,6 @@ abstract class LetterDatabase: RoomDatabase() {
             Room.databaseBuilder(context.applicationContext,
                     LetterDatabase::class.java, DB_NAME).build()
     }
+
+
 }
