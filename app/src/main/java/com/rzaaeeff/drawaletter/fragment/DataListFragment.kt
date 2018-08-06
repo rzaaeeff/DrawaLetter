@@ -5,20 +5,20 @@ import android.graphics.BitmapFactory
 import android.os.AsyncTask
 import android.os.Bundle
 import android.support.v4.app.Fragment
+import android.support.v7.app.AlertDialog
 import android.support.v7.widget.LinearLayoutManager
 import android.support.v7.widget.RecyclerView
-import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
+import android.view.*
 import android.widget.ImageView
 import android.widget.TextView
 import com.rzaaeeff.drawaletter.R
 import com.rzaaeeff.drawaletter.persistence.Letter
 import com.rzaaeeff.drawaletter.persistence.LetterDatabase
+import kotlinx.android.synthetic.main.fragment_interactive_mode.*
 import java.io.ByteArrayInputStream
 
 
-class DataListFragment: Fragment() {
+class DataListFragment : Fragment() {
 
     // Other elements
     private val letters = ArrayList<Letter>()
@@ -36,10 +36,45 @@ class DataListFragment: Fragment() {
 
         FillDataTask().execute()
 
+        setHasOptionsMenu(true)
+
         return recyclerView
     }
 
-    inner class FillDataTask: AsyncTask<Void, Void, Void>() {
+    override fun onCreateOptionsMenu(menu: Menu?, inflater: MenuInflater?) {
+        inflater?.inflate(R.menu.menu_list, menu)
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem?): Boolean {
+        when (item?.itemId) {
+            R.id.itemClear -> {
+                AlertDialog.Builder(activity!!)
+                        .setTitle(R.string.confirm)
+                        .setMessage(R.string.are_you_sure)
+                        .setPositiveButton(R.string.yes) { dialog, which ->
+                            AsyncTask.execute {
+                                LetterDatabase.getInstance(context!!).letterDao().deleteAllLetters()
+
+                                activity!!.runOnUiThread {
+                                    dialog.dismiss()
+                                    activity!!.onBackPressed()
+                                }
+                            }
+                        }
+                        .setNegativeButton(R.string.no) { dialog, which ->
+                            // Do nothing
+                            dialog.dismiss()
+                        }
+                        .create().show()
+
+                return true
+            }
+
+            else -> return false
+        }
+    }
+
+    inner class FillDataTask : AsyncTask<Void, Void, Void>() {
         override fun doInBackground(vararg params: Void?): Void? {
             letters.addAll(LetterDatabase.getInstance(context!!).letterDao().getAllLetters())
 
@@ -54,7 +89,7 @@ class DataListFragment: Fragment() {
     inner class RecyclerAdapterLetter(
             private val context: Context,
             private val letters: List<Letter>
-            ): RecyclerView.Adapter<RecyclerAdapterLetter.LetterHolder>() {
+    ) : RecyclerView.Adapter<RecyclerAdapterLetter.LetterHolder>() {
 
         override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): LetterHolder {
             val view = LayoutInflater.from(context).inflate(
@@ -70,7 +105,7 @@ class DataListFragment: Fragment() {
             holder.bind(letters[position])
         }
 
-        inner class LetterHolder(view: View): RecyclerView.ViewHolder(view) {
+        inner class LetterHolder(view: View) : RecyclerView.ViewHolder(view) {
             var textView: TextView = view.findViewById(R.id.textView)
             var imageView: ImageView = view.findViewById(R.id.imageView)
 
