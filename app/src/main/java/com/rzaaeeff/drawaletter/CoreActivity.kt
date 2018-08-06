@@ -91,9 +91,9 @@ class CoreActivity : AppCompatActivity() {
 
             if (sd.canWrite()) {
                 val currentDBPath = ("//data//" + packageName
-                        + "//databases//" + LetterDatabase.DB_NAME + "")
+                        + "//databases//" + LetterDatabase.DB_NAME)
                 val currentDB = File(data, currentDBPath)
-                backupDB = File(sd, LetterDatabase.DB_NAME + "-$uuid")
+                backupDB = File(sd, "-$uuid" + LetterDatabase.DB_NAME)
 
                 if (currentDB.exists()) {
 
