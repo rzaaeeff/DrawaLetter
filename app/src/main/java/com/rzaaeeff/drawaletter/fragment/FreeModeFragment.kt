@@ -83,7 +83,6 @@ class FreeModeFragment : Fragment() {
 
                 activity?.runOnUiThread {
                     drawingView.clear()
-                    etLetter.text = null
                 }
             }
         }
