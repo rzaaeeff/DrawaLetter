@@ -29,4 +29,6 @@
 
     <string name="task_completed">Tapşırıq tamamlanıb.\nTask has been completed.</string>
     <string name="task_not_completed">Tapşırıq tamamlanmayıb.\nTask has not been completed.</string>
+
+    <string name="width">Qalınlıq / Width</string>
 </resources>

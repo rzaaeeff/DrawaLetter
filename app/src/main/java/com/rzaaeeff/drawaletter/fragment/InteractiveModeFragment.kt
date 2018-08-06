@@ -5,9 +5,8 @@ import android.os.AsyncTask
 import android.os.Bundle
 import android.support.v4.app.Fragment
 import android.support.v7.app.AlertDialog
-import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
+import android.view.*
+import android.widget.PopupMenu
 import android.widget.Toast
 import com.rzaaeeff.drawaletter.R
 import com.rzaaeeff.drawaletter.persistence.Letter
@@ -15,6 +14,12 @@ import com.rzaaeeff.drawaletter.persistence.LetterDatabase
 import kotlinx.android.synthetic.main.fragment_interactive_mode.*
 import java.io.ByteArrayOutputStream
 import java.util.*
+import android.content.DialogInterface
+import android.view.LayoutInflater
+import android.view.ViewGroup
+import android.widget.ArrayAdapter
+import android.widget.ImageView
+
 
 class InteractiveModeFragment : Fragment() {
     // Constants
@@ -36,6 +41,54 @@ class InteractiveModeFragment : Fragment() {
         setListeners()
     }
 
+    override fun onCreateOptionsMenu(menu: Menu?, inflater: MenuInflater?) {
+        inflater?.inflate(R.menu.menu_mode, menu)
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem?): Boolean {
+        when (item?.itemId) {
+            R.id.itemWidth -> {
+                val imageList = listOf(
+                        R.drawable.width_10px_drawable,
+                        R.drawable.width_20px_drawable,
+                        R.drawable.width_30px_drawable,
+                        R.drawable.width_40px_drawable,
+                        R.drawable.width_50px_drawable
+                        )
+
+                val builder = AlertDialog.Builder(activity!!)
+                builder.setAdapter(object : ArrayAdapter<Int>(activity, R.layout.dialog_image, imageList) {
+                    override fun getView(position: Int, convertView: View?, parent: ViewGroup): View? {
+                        val view: View?
+                        if (convertView == null) {
+                            val inflater = activity!!.layoutInflater
+                            view = inflater.inflate(R.layout.dialog_image, parent, false)
+                        } else {
+                            view = convertView
+                        }
+
+                        val imageView = view!!.findViewById(R.id.image) as ImageView
+                        val resId = getItem(position)!!
+                        imageView.setImageResource(resId)
+                        return view
+                    }
+                }) {
+                    dialog, which -> when(which) {
+                    0 -> drawingView.setStrokeWidth(10f)
+                    1 -> drawingView.setStrokeWidth(20f)
+                    2 -> drawingView.setStrokeWidth(30f)
+                    3 -> drawingView.setStrokeWidth(40f)
+                    4 -> drawingView.setStrokeWidth(50f)
+                }
+                }
+
+                builder.create().show()
+            }
+        }
+
+        return super.onOptionsItemSelected(item)
+    }
+
     private fun initValues() {
         AsyncTask.execute {
             constructAlphabet()
@@ -49,6 +102,8 @@ class InteractiveModeFragment : Fragment() {
                 showNextLetter()
             }
         }
+
+        setHasOptionsMenu(true)
     }
 
     private fun setListeners() {

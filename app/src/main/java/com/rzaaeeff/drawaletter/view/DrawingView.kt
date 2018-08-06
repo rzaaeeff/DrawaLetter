@@ -25,6 +25,10 @@ class DrawingView(context: Context, attrs: AttributeSet) : View(context, attrs) 
         super.onDraw(canvas)
     }
 
+    fun setStrokeWidth(width: Float) {
+        paint.strokeWidth = width
+        invalidate()
+    }
 
     override fun onTouchEvent(event: MotionEvent): Boolean {
 
