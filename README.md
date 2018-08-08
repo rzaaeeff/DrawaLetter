@@ -14,3 +14,6 @@ You can find video instructions here:
 
 ## Paper
 Paper can be found here: `not published yet`
+
+## License
+GNU General Public License v3.0
