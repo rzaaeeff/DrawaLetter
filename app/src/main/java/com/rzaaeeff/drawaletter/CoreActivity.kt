@@ -82,8 +82,9 @@ class CoreActivity : AppCompatActivity() {
     private fun exportAndSendDatabase() {
         var backupDB: File? = null
 
-        val uuid = getSharedPreferences(DrawaLetter.SP_NAME, Context.MODE_PRIVATE)
-                .getString(DrawaLetter.SP_UUID, "NONE")
+        val prefs = getSharedPreferences(DrawaLetter.SP_NAME, Context.MODE_PRIVATE)
+        val uuid = prefs.getString(DrawaLetter.SP_UUID, "NONE")
+        val time = System.currentTimeMillis()
 
         try {
             val sd = Environment.getExternalStorageDirectory()
@@ -93,7 +94,7 @@ class CoreActivity : AppCompatActivity() {
                 val currentDBPath = ("//data//" + packageName
                         + "//databases//" + LetterDatabase.DB_NAME)
                 val currentDB = File(data, currentDBPath)
-                backupDB = File(sd, "-$uuid" + LetterDatabase.DB_NAME)
+                backupDB = File(sd, "$time-$uuid-" + LetterDatabase.DB_NAME)
 
                 if (currentDB.exists()) {
 
