@@ -8,6 +8,7 @@ class DrawaLetter: Application() {
     companion object {
         const val SP_NAME = "com.rzaaeeff.drawaletter.DrawALetter"
         const val SP_UUID = "com.rzaaeeff.drawaletter.DrawALetter.UUID"
+        const val SP_COMPLETED = "com.rzaaeeff.drawaletter.DrawALetter.COMPLETED"
     }
 
     override fun onCreate() {
