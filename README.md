@@ -2,8 +2,8 @@
 
 Draw a Letter is a project to ease data collection for OCR research. It's an Android application written in Kotlin. As the name suggests, app will enable user to draw letters, and send them to the owners of this project. Research work is done for dissertation of MSc degree in Khazar University.
 
-## Demo
-App demo can be downloaded from here: [Draw a Letter [v0.7 alpha].apk](https://drive.google.com/open?id=1AeXWfGqhZ55uCr9RBnj47wjpTkuseWuC)
+## Download
+App can be downloaded from here: [Draw a Letter [v0.7 alpha].apk](https://drive.google.com/open?id=1AeXWfGqhZ55uCr9RBnj47wjpTkuseWuC)
 
 ## Instructions
 You can find video instructions here:
