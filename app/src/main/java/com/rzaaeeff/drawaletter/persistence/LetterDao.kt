@@ -20,6 +20,12 @@ interface LetterDao {
     fun insertLetter(letter: Letter)
 
     /**
+     * Delete one letter.
+     */
+    @Query("DELETE FROM letters WHERE id=:id")
+    fun deleteLetter(id: Int?)
+
+    /**
      * Delete all letters.
      */
     @Query("DELETE FROM letters")

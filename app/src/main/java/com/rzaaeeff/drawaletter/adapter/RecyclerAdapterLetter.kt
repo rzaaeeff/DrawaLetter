@@ -14,7 +14,8 @@ import java.io.ByteArrayInputStream
 
 class RecyclerAdapterLetter(
         private val context: Context,
-        private val letters: List<Letter>
+        private val letters: List<Letter>,
+        private val controller: Controller
 ) : RecyclerView.Adapter<RecyclerAdapterLetter.LetterHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): LetterHolder {
@@ -31,9 +32,14 @@ class RecyclerAdapterLetter(
         holder.bind(letters[position])
     }
 
-    inner class LetterHolder(view: View) : RecyclerView.ViewHolder(view) {
+    inner class LetterHolder(view: View) : RecyclerView.ViewHolder(view), View.OnLongClickListener {
+
         var textView: TextView = view.findViewById(R.id.textView)
         var imageView: ImageView = view.findViewById(R.id.imageView)
+
+        init {
+            view.setOnLongClickListener(this)
+        }
 
         fun bind(letter: Letter) {
             textView.text = letter.letter
@@ -41,5 +47,20 @@ class RecyclerAdapterLetter(
             val inputStream = ByteArrayInputStream(letter.image)
             imageView.setImageBitmap(BitmapFactory.decodeStream(inputStream))
         }
+
+        override fun onLongClick(v: View?): Boolean {
+            val position = adapterPosition
+
+            if (position != RecyclerView.NO_POSITION) {
+                controller.onLetterLongClick(position)
+                return true
+            }
+
+            return false
+        }
+    }
+
+    interface Controller {
+        fun onLetterLongClick(position: Int)
     }
 }

@@ -13,7 +13,7 @@ import com.rzaaeeff.drawaletter.persistence.Letter
 import com.rzaaeeff.drawaletter.persistence.LetterDatabase
 
 
-class DataListFragment : Fragment() {
+class DataListFragment : Fragment(), RecyclerAdapterLetter.Controller {
 
     // Other elements
     private val letters = ArrayList<Letter>()
@@ -27,7 +27,7 @@ class DataListFragment : Fragment() {
         )
 
         recyclerView.layoutManager = LinearLayoutManager(context!!)
-        recyclerView.adapter = RecyclerAdapterLetter(context!!, letters)
+        recyclerView.adapter = RecyclerAdapterLetter(context!!, letters, this)
 
         FillDataTask().execute()
 
@@ -67,11 +67,45 @@ class DataListFragment : Fragment() {
 
             else -> return false
         }
+
+
+    }
+
+    override fun onLetterLongClick(position: Int) {
+        AlertDialog.Builder(activity!!)
+                .setTitle(R.string.confirm)
+                .setMessage(
+                        getString(R.string.letter_will_be_deleted) + "\n" +
+                                getString(R.string.are_you_sure)
+                )
+                .setPositiveButton(R.string.yes) { _, _ ->
+                    DeleteLetterTask().execute(letters[position].id)
+                }
+                .setNegativeButton(R.string.no) { dialog, which ->
+                    // Do nothing
+                    dialog.dismiss()
+                }
+                .create().show()
     }
 
     inner class FillDataTask : AsyncTask<Void, Void, Void>() {
         override fun doInBackground(vararg params: Void?): Void? {
             letters.addAll(LetterDatabase.getInstance(context!!).letterDao().getAllLetters())
+
+            return null
+        }
+
+        override fun onPostExecute(result: Void?) {
+            recyclerView.adapter.notifyDataSetChanged()
+        }
+    }
+
+    inner class DeleteLetterTask : AsyncTask<Int?, Void?, Void?>() {
+        override fun doInBackground(vararg params: Int?): Void? {
+            val rowId = params[0]
+
+            LetterDatabase.getInstance(context!!).letterDao().deleteLetter(rowId)
+            letters.forEachIndexed { index, letter -> if (letter.id == rowId) letters.removeAt(index)}
 
             return null
         }
